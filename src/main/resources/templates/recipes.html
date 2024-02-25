@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes</title>
+</head>
+<body>
+<h1>Списък с рецепти</h1>
+<ul>
+    <li th:each="recipe : ${recipes}">
+        <h2 th:text="${recipe.name}"> </h2>
+        <h2 th:text="${recipe.description}"> </h2>
+        <h2 th:text="${recipe.categoryRecipe}"> </h2>
+        <h2 th:text="${recipe.categoryRecipe}"> </h2>
+        <label >Продукти:</label>
+        <ul>
+            <li th:each="product : ${recipe.products}">
+
+                <label th:text="|Name: ${product.name}|"></label>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+
+</body>
+</html>

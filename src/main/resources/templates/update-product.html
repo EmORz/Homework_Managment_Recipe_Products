@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update product</title>
+</head>
+<body>
+<form th:action="@{/product/update}" th:object="${product}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <label for="name">Име:</label>
+  <input type="text" name="name" id="name" th:field="*{name}">
+  <br>
+
+  <label for="categoryProducts">Категория:</label>
+  <select id="categoryProducts" name="categoryProducts" th:field="*{categoryProducts}">
+    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">
+    </option>
+  </select>
+  <br>
+  <button type="submit">Обновяване</button>
+</form>
+</body>
+</html>

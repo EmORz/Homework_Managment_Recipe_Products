@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Списък с продукти</title>
+</head>
+<body>
+<h1>Списък с продукти</h1>
+
+
+<ul>
+    <p th:if="${successMessage != null}" th:text="${successMessage}">
+
+    </p>
+    <li th:each="product : ${products}">
+
+        <span th:text="|${product.name} -> ${product.categoryProducts.name}|"></span>
+
+        <a th:href="@{/product/update/{id}(id=${product.id})}">
+            <button>Редактиране</button>
+        </a>
+        <a th:href="@{/product/{id}(id=${product.id})}">
+            <button>Изтриване</button>
+        </a>
+
+    </li>
+</ul>
+
+</body>
+</html>
