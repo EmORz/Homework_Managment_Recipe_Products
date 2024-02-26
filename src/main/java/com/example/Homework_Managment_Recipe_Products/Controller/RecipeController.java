@@ -9,9 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -20,10 +22,12 @@ public class RecipeController {
 
     private RecipeRepository recipeRepository;
     private ProductRepository productRepository;
+    private RecipeService recipeService;
 
-    public RecipeController(RecipeRepository recipeRepository, ProductRepository productRepository) {
+    public RecipeController(RecipeRepository recipeRepository, ProductRepository productRepository, RecipeService recipeService) {
         this.recipeRepository = recipeRepository;
         this.productRepository = productRepository;
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/recipe")
@@ -39,6 +43,7 @@ public class RecipeController {
     public List<CategoryRecipe> getCategories() {
         return Arrays.asList(CategoryRecipe.values());
     }
+
     @GetMapping("/recipe/create")
     public String createRecipeForm(Model model) {
         model.addAttribute("recipe", new Recipe());
@@ -47,12 +52,14 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/create")
-    public String createRecipePost(@Valid @ModelAttribute Recipe recipe){
+    public ModelAndView createRecipePost(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model){
 
-        Set<Product> selectedProducts = recipe.getProducts();
-
-        recipe.setProducts( selectedProducts);
-        recipeRepository.save(recipe);
-        return "redirect:/recipe";
+        return recipeService.createRecipePost(recipe, bindingResult, model);
+//        Set<Product> selectedProducts = recipe.getProducts();
+//
+//        recipe.setProducts( selectedProducts);
+//        recipeRepository.save(recipe);
+//        return "redirect:/recipe";
+//        return new ModelAndView("redirect:/recipe");
     }
 }

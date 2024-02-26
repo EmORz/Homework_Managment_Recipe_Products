@@ -7,28 +7,47 @@
 <body>
 <h1>Създаване на рецепта</h1>
 <form th:action="@{/recipe/create}" th:object="${recipe}" method="post">
-  <label for="name">Име:</label>
-  <input type="text" name="name" id="name" th:field="*{name}">
-  <br>
-  <label for="categoryRecipe">Категория:</label>
-  <option value="">Изберете категория</option>
-  <select id="categoryRecipe" name="categoryRecipe" th:field="*{categoryRecipe}">
-    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">
-    </option>
-  </select>
 
+  <div th:if="${#fields.hasErrors('*')}">
+    <ul>
+      <li th:each="error : ${errors}">
+        <span th:text="${error.field} : ${error.defaultMessage}"></span>
+      </li>
+    </ul>
+  </div>
+
+
+  <div th:if="${#fields.hasErrors('name')}" class="error">
+    <p th:errors="*{name}"></p>
+  </div>
+  <label for="name">Име:</label>
+  <input type="text" id="name" name="name" th:field="*{name}" required>
   <br>
+
+  <div th:if="${#fields.hasErrors('categoryRecipe')}" class="error">
+    <p th:errors="*{categoryRecipe}"></p>
+  </div>
+  <label for="categoryRecipe">Категория:</label>
+  <select id="categoryRecipe" name="categoryRecipe" th:field="*{categoryRecipe}" required>
+    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">Изберете категория</option>
+  </select>
+  <br>
+
+  <div th:if="${#fields.hasErrors('description')}" class="error">
+    <p th:errors="*{description}"></p>
+  </div>
   <label for="description">Описание:</label>
-  <textarea id="description" name="description" th:field="*{description}"></textarea>
+  <textarea id="description" name="description" th:field="*{description}" required></textarea>
   <br>
-  <label >Продукти:</label>
-  <ul>
-    <li th:each="product : ${products}">
-      <input type="checkbox" id="${product.id}" name="products" value="{product.id}" th:value="${product.id}">
-      <label th:text="${product.name}"></label>
-    </li>
-  </ul>
+
+<!--  <label for="products">Продукти:</label>-->
+<!--  <ul>-->
+<!--    <li th:each="product : ${products}"> <input type="checkbox" id="${product.id}" name="products[]" th:value="${product.id}">-->
+<!--      <label th:text="${product.name}"></label>-->
+<!--    </li>-->
+<!--  </ul>-->
   <br>
+
   <button type="submit">Създаване</button>
 </form>
 </body>

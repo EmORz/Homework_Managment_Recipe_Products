@@ -23,7 +23,7 @@ public class Recipe {
     private CategoryRecipe categoryRecipe;
 
 
-    @Size(min = 10, max = 250, message = "Описанието на рецептата трябва да е между 102 и 50 символа")
+    @Size(min = 10, max = 250, message = "Описанието на рецептата трябва да е между 10 и 250 символа")
     private String description;
 
     @ManyToMany

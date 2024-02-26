@@ -26,6 +26,7 @@ public class ProductService {
                                           Model model,
                                           BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
+        System.out.println("...");
         if (bindingResult.hasErrors()) {
             List<FieldError> nameErrors = bindingResult.getFieldErrors("name");
             model.addAttribute("errors", nameErrors);

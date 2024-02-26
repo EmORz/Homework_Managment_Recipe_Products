@@ -21,6 +21,7 @@
     <label for="name">Име:</label>
     <input type="text" name="name" id="name" th:field="*{name}">
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
 
     </p>
     <br>

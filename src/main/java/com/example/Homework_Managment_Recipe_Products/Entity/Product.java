@@ -20,7 +20,13 @@ public class Product {
 
     private CategoryProducts categoryProducts;
 
+    public Product(String name, CategoryProducts categoryProducts) {
+        this.name = name;
+        this.categoryProducts = categoryProducts;
+    }
 
+    public Product() {
+    }
 
     public Long getId() {
         return id;
