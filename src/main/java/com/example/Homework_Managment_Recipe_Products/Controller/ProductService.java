@@ -30,6 +30,7 @@ public class ProductService {
         if (bindingResult.hasErrors()) {
             List<FieldError> nameErrors = bindingResult.getFieldErrors("name");
             model.addAttribute("errors", nameErrors);
+            model.addAttribute("product", new Product());
             return new ModelAndView("create-product");
         }
 
