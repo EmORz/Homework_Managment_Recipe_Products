@@ -3,7 +3,10 @@ package com.example.Homework_Managment_Recipe_Products.Controller;
 import com.example.Homework_Managment_Recipe_Products.Entity.CategoryProducts;
 import com.example.Homework_Managment_Recipe_Products.Entity.Product;
 import com.example.Homework_Managment_Recipe_Products.Repository.ProductRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.apache.maven.wagon.ResourceDoesNotExistException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,16 +51,21 @@ public class ProductController {
 
     @GetMapping("/product")
     public String showAllProducts( Model model) {
-
-        model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("products", productService.findAllProducts());
         return "products";
     }
 
     @GetMapping("/product/update/{id}")
-    public String showUpdateProductForm(@PathVariable Long id, Model model) {
-        Product product = productRepository.findById(id).orElseThrow(null);
-        model.addAttribute("product", product);
-        return "update-product";
+    public String showUpdateProductForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)  {
+
+        try {
+            model.addAttribute("product", productService.findProductById(id));
+            return "update-product";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Продуктът не е намерен с ID: " + id);
+            return "redirect:/product";
+        }
+
     }
 
     @PostMapping("/product/update")

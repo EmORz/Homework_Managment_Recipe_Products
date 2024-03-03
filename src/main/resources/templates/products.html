@@ -10,6 +10,7 @@
 
 <ul>
     <p th:if="${successMessage != null}" th:text="${successMessage}">
+    <p th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
 
     </p>
     <li th:each="product : ${products}">

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<h1>Error</h1>
+<p th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+<<a href="${#request.getHeader('referer')}">Върнете се в начална страница</a>
+
+</body>
+</html>

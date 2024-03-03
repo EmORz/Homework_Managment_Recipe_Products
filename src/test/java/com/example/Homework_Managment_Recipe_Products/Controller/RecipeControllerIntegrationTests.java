@@ -23,6 +23,17 @@ public class RecipeControllerIntegrationTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Test
+    void shouldReturnAllRecipes(){
+        try {
+            this.mockMvc.perform(get("/recipe"))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(containsString("<h1>Списък с рецепти</h1>")));
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test
     void shouldReturnCreateRecipeForm(){
