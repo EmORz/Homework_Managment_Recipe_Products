@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.apache.maven.wagon.ResourceDoesNotExistException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,7 @@ public class ProductController {
         return "create-product";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/product/create")
     public ModelAndView createPostProduct(@Valid @ModelAttribute Product product,
                                           Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
@@ -55,6 +57,7 @@ public class ProductController {
         return "products";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/product/update/{id}")
     public String showUpdateProductForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)  {
 
@@ -74,6 +77,7 @@ public class ProductController {
         return "redirect:/product";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productRepository.deleteById(id);
