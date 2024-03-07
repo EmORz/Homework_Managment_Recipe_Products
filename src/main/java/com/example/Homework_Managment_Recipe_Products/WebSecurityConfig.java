@@ -27,7 +27,9 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/product", "/recipe").permitAll()
-                        .requestMatchers("/product/create", "/recipe/create").authenticated()
+                        .requestMatchers("/product/create",
+                                "/user-details",
+                                "/recipe/create").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
